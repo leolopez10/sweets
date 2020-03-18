@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 const Scehma = mongoose.Schema;
-const crypto = require('crypto');
+// const crypto = require('crypto');
+// const bcrypt = require('bcryptjs')
 const uuidv1 = require('uuid/v1');
 
-const userSchema = new Schema({
+const UserSchema = new Schema({
     name: {
         type: String,
         trim: true,
@@ -35,4 +36,8 @@ const userSchema = new Schema({
         type: Array,
         default: []
     },
-}, { timestamps: true })
+},
+    { timestamps: true }
+)
+
+
