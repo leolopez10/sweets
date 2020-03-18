@@ -40,4 +40,30 @@ const UserSchema = new Schema({
     { timestamps: true }
 )
 
+userSchema.virtual('password')
+    .set(function (password) {
+        this._password = password
+        this.salt = uuidv1()
+        this.hashed_password = this.encryptPassword(password)
+    })
+    .get(function () {
+        return this._password
+    })
 
+UserSchema.methods = {
+    encryptPassword: function (password) {
+        if (!password) return '';
+        try {
+            return crypto.createHmac('sha1', this.salt)
+                .update(password)
+                .digest('hex')
+        }
+        catch (err) {
+            return ""
+        }
+    }
+};
+
+const User = mongoose.model("User", UserSchema);
+
+module.exports = User;
