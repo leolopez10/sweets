@@ -7,13 +7,15 @@ const userRoutes = require("./routes/user");
 const app = express();
 const PORT = process.env.PORT || 8000;
 
+//express body parser
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+
 //Database
-mongoose.connect(process.env.DATABASE, {
-    useNewUrlParser: true,
-    useCreateIndex: true
-}).then(() => {
-    console.log("============================Database Connected================")
-});
+mongoose.connect(
+    process.env.MONGODB_URI || process.env.DATABASE)
+    .then(() => { console.log("============================Database Connected================") })
+    .catch(err => console.log(err));
 
 //Routes middleware
 app.use("/api", userRoutes);
