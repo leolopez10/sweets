@@ -167,8 +167,8 @@ exports.list = (req, res) => {
 // other products that has the same category, will be returned
 //============================================================
 
-exports.listRelated = (res, req) => {
-    let limit = req.query.limit ? parseInt(req.query.limit) : 6;
+exports.listRelated = (req, res) => {
+    let limit = req.query.limit ? parseInt(req.query.limit) : 6
 
     Product.find({_id: {$ne: req.product}, category: req.product.category})
         .limit(limit)
@@ -180,6 +180,6 @@ exports.listRelated = (res, req) => {
                 });
             }
             res.send(products)
-        })
-}
+        });
+};
 
