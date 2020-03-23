@@ -25,8 +25,8 @@ exports.update = (req, res) => {
                 error: "You are not authorized to perform this action"
             })
         }
-        user.profile.hashed_password = undefined;
-        user.profile.salt = undefined;
+        user.hashed_password = undefined;
+        user.salt = undefined;
         res.json(user);
 
     })
