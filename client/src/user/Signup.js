@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Layout from '../core/Layout'
 import { API } from '../config'
-import { json } from 'body-parser';
 
 const Signup = () => {
 
@@ -13,8 +12,33 @@ const Signup = () => {
         success: false
     })
 
+    const {name, email, password} = values
+
     const handleChange = name => event => {
         setValues({...values, error: false, [name]: event.target.value})
+    }
+
+    const clickSubmit = (event) => {
+        event.preventDefault();
+        signup({name, email, password});
+    }
+
+    const signup = (user) => {
+        // console.log(name, email, password)
+        fetch(`${API}/signup`, {
+            method: "POST",
+            headers: {
+                Accept: 'application/json',
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(user)
+        })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => {
+            console.log(err);
+        });
     }
 
     const signUpForm = () => (
@@ -35,7 +59,7 @@ const Signup = () => {
             </div>
 
             <div>
-                <button className="btn btn-primary">
+                <button onClick={clickSubmit} className="btn btn-primary">
                     Submit
                 </button>
             </div>
