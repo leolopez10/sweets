@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Redirect } from 'react-router-dom';
 import Layout from '../core/Layout';
-import { signin } from '../auth';
+import { signin, authenticate } from '../auth';
 
 const Signin = () => {
 
     const [values, setValues] = useState({
-        email: "",
-        password: "",
+        email: "asdf@asdf.com",
+        password: "asdfasdf1",
         error: "",
         loading: false,
         redirectToReferrer: false
@@ -39,14 +39,16 @@ const Signin = () => {
                         loading: false
                     })
                 } else {
-                    setValues({
-                        ...values,
-                        redirectToReferrer: true
-                    })
+                    authenticate(data, () => {
+                        setValues({
+                            ...values,
+                            redirectToReferrer: true
+                        });
+                    });
                 }
 
-            })
-    }
+            });
+    };
 
 
 
@@ -103,15 +105,15 @@ const Signin = () => {
     );
 
     const redirectUser = () => {
-        if(redirectToReferrer) {
+        if (redirectToReferrer) {
             return <Redirect to="/" />
         }
     }
 
     return (
         <Layout
-            title="Sign-Up Page"
-            description="Sign-Up to React E-commerce App"
+            title="Sign-In Page"
+            description="Sign-In to React E-commerce App"
             className="container col-md-8 offset-md-2"
         >
             {showLoading()}
