@@ -1,10 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Signup from './user/Signup'
 import Signin from './user/Signin'
 import Home from './core/Home';
 
+//using axios to check if frontend is connected to backend
+import axios from 'axios'
+
 const Routes = () => {
+    useEffect(() => {
+        axios.get("/api/hello").then(result => {
+          console.log(result.data);
+        });
+      }, []);
     return (<div>
         <BrowserRouter>
             <Switch>
