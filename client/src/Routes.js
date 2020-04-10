@@ -5,6 +5,7 @@ import Signup from './user/Signup'
 import Signin from './user/Signin'
 import Home from './core/Home';
 import Dashboard from './user/UserDashboard';
+import AdminDashboard from './user/AdminDashboard'
 
 //using axios to check if frontend is connected to backend
 import axios from 'axios'
