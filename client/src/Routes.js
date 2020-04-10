@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
+import PrivateRoute from './auth/PrivateRoute';
 import Signup from './user/Signup'
 import Signin from './user/Signin'
 import Home from './core/Home';
+import Dashboard from './user/UserDashboard';
 
 //using axios to check if frontend is connected to backend
 import axios from 'axios'
@@ -19,6 +21,7 @@ const Routes = () => {
                 <Route path='/' exact component={Home} />
                 <Route path='/signin' exact component={Signin} />
                 <Route path='/signup' exact component={Signup} />
+                <PrivateRoute path='/dashboard' exact component={Dashboard} />
             </Switch>
         </BrowserRouter>
     </div>);
