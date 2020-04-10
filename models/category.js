@@ -7,7 +7,8 @@ const categorySchema = new Schema({
         type: String,
         trim: true,
         require: true,
-        maxlength: 32
+        maxlength: 32,
+        unique: true
     }
 },
     { timestamps: true }
