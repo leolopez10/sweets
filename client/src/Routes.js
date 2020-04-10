@@ -8,6 +8,7 @@ import Home from './core/Home';
 import Dashboard from './user/UserDashboard';
 import AdminDashboard from './user/AdminDashboard';
 import AddCategory from './admin/AddCategory';
+import AddProduct from './admin/AddProduct';
 
 //using axios to check if frontend is connected to backend
 import axios from 'axios'
@@ -27,6 +28,7 @@ const Routes = () => {
                 <PrivateRoute path='/user/dashboard' exact component={Dashboard} />
                 <AdminRoute path='/admin/dashboard' exact component={AdminDashboard} />
                 <AdminRoute path='/create/category' exact component={AddCategory} />
+                <AdminRoute path='/create/product' exact component={AddProduct} />
             </Switch>
         </BrowserRouter>
     </div>);
