@@ -188,6 +188,14 @@ const AddProduct = () => {
         )
     )
 
+    const goBack = () => (
+        <div className='mt-5'>
+            <Link to='/admin/dashboard' className='text-warning'>
+                Back to Dashboard
+            </Link>
+        </div>
+    )
+
 return (
     <Layout title="Add a new Category" description={`G'day ${user.name}, ready to add a new product?`} className="container">
         <div className="row">
@@ -196,6 +204,8 @@ return (
                 {showSuccess()}
                 {showError()}
                 {newPostForm()}
+                {goBack()}
+
             </div>
         </div>
     </Layout>
