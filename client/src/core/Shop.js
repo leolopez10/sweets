@@ -35,7 +35,28 @@ const Shop = () => {
         //lesson 92 section 12
         const newFilters = { ...myFilters }
         newFilters.filters[filterBy] = filters
+
+        //lesson 95 section 12
+        if(filterBy == 'price'){
+            let priceValue = handlePrice(filters)
+            newFilters.filters[filterBy] = priceValue
+        }
+
         setMyFilters(newFilters)
+    };
+
+    //lesson 95 section 12
+    const handlePrice = value => {
+        const data = prices
+        let array = []
+
+        for(let key in data) {
+            if(data[key]._id === parseInt(value)) {
+                array = data[key].array
+            }
+        }
+
+        return array;
     }
 
     return (
