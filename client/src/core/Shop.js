@@ -24,6 +24,11 @@ const Shop = () => {
         init()
     }, [])
 
+    //lesson 91 section 12
+    const handleFilters = (filters, filterBy) => {
+        console.log("SHOP", filters, filterBy)
+    }
+
     return (
         <Layout title="Shop Page" description="Try out our Baked Goods" className="container-fluid">
             <div className='row'>
@@ -31,7 +36,7 @@ const Shop = () => {
                     {/* {JSON.stringify(categories)} */}
                     <h4>Filter by Categories</h4>
                     <ul>
-                        <Checkbox categories={categories} />
+                        <Checkbox categories={categories} handleFilters={filters => handleFilters(filters, 'category')} />
                     </ul>
                 </div>
                 <div className='col-8'>right</div>
