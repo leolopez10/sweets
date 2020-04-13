@@ -2,12 +2,17 @@ import React, { useState, useEffect } from 'react';
 import Layout from './Layout';
 import { getCategories } from './apiCore';
 import Checkbox from './Checkbox';
+import RadioBox from './RadioBox';
+import { prices } from './fixedPrices';
 import Card from './Card';
 
 const Shop = () => {
 
     const [categories, setCategories] = useState([]);
     const [error, setError] = useState(false);
+    const [myFilters, setMyFilters] = useState({
+        filters: { category: [], price: [] }
+    });
 
     const init = () => {
         getCategories()
@@ -26,7 +31,11 @@ const Shop = () => {
 
     //lesson 91 section 12
     const handleFilters = (filters, filterBy) => {
-        console.log("SHOP", filters, filterBy)
+        // console.log("SHOP", filters, filterBy)
+        //lesson 92 section 12
+        const newFilters = { ...myFilters }
+        newFilters.filters[filterBy] = filters
+        setMyFilters(newFilters)
     }
 
     return (
@@ -38,8 +47,16 @@ const Shop = () => {
                     <ul>
                         <Checkbox categories={categories} handleFilters={filters => handleFilters(filters, 'category')} />
                     </ul>
+
+                    <h4>Filter by Price Range</h4>
+                    <div>
+                        <RadioBox prices={prices} handleFilters={filters => handleFilters(filters, 'price')} />
+                    </div>
+
                 </div>
-                <div className='col-8'>right</div>
+                <div className='col-8'>
+                    {JSON.stringify(myFilters)}
+                </div>
             </div>
         </Layout>
     );
