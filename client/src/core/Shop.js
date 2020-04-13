@@ -7,7 +7,7 @@ import { prices } from './fixedPrices';
 import Card from './Card';
 
 const Shop = () => {
-    
+
     const [myFilters, setMyFilters] = useState({
         filters: { category: [], price: [] }
     });
@@ -15,7 +15,7 @@ const Shop = () => {
     const [error, setError] = useState(false);
     const [limit, setLimit] = useState(6);
     const [skip, setSkip] = useState(0);
-    const [filteredResults, setFilteredResults] = useState(0);
+    const [filteredResults, setFilteredResults] = useState([]);
 
     const init = () => {
         getCategories()
@@ -32,10 +32,10 @@ const Shop = () => {
         // console.log(newFilters);
         getFilteredProducts(skip, limit, newFilters)
             .then(data => {
-                if(data.error) {
+                if (data.error) {
                     setError(data.error)
                 } else {
-                    setFilteredResults(data)
+                    setFilteredResults(data.data)
                 }
             })
     }
@@ -53,7 +53,7 @@ const Shop = () => {
         newFilters.filters[filterBy] = filters
 
         //lesson 95 section 12
-        if(filterBy == 'price'){
+        if (filterBy == 'price') {
             let priceValue = handlePrice(filters)
             newFilters.filters[filterBy] = priceValue
         }
@@ -69,8 +69,8 @@ const Shop = () => {
         const data = prices
         let array = []
 
-        for(let key in data) {
-            if(data[key]._id === parseInt(value)) {
+        for (let key in data) {
+            if (data[key]._id === parseInt(value)) {
                 array = data[key].array
             }
         }
@@ -97,7 +97,13 @@ const Shop = () => {
 
                 </div>
                 <div className='col-8'>
-                    {JSON.stringify(filteredResults)}
+                    {/* {JSON.stringify(filteredResults)} */}
+                    <h2 className='mb-4'>Products</h2>
+                    <div className='row'>
+                        {filteredResults.map((product, index) => (
+                            <Card key={index} product={product} />
+                        ))}
+                    </div>
                 </div>
             </div>
         </Layout>
