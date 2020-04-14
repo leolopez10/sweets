@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Layout from './Layout';
-import { getCategories } from './apiCore';
+import { getCategories, list } from './apiCore';
 import Card from './Card';
 
 const Search = () => {
@@ -9,11 +9,11 @@ const Search = () => {
         categories: [],
         category: '',
         search: '',
-        result: [],
+        results: [],
         searched: false
     });
 
-    const { categories, category, search, result, searched } = data
+    const { categories, category, search, results, searched } = data
 
     const loadCategories = () => {
         getCategories()
@@ -30,12 +30,28 @@ const Search = () => {
         loadCategories()
     }, [])
 
-    const handleChange = () => {
-        //
+    const handleChange = name => event => {
+        setData({ ...data, [name]: event.target.value, searched: false });
     };
 
-    const searchSubmit = () => {
-        //
+    const searchSubmit = (event) => {
+        event.preventDefault();
+        searchData()
+    };
+
+    // lesson 101 section 13
+    const searchData = () => {
+        // console.log(search, category)
+        if(search) {
+            list({search: search || undefined, category: category})
+                .then(response => {
+                    if(response.error) {
+                        console.log(response.error)
+                    } else {
+                        setData({...data, results: response, searched: true});
+                    }
+                })
+        }
     };
 
     const searchForm = () => (
@@ -46,9 +62,9 @@ const Search = () => {
                         <select className='btn mr-2' onChange={handleChange('category')}>
                             <option value='All'>Pick Category</option>
                             {categories.map((category, index) => (
-                            <option key={index} value={category._id}>
-                                {category.name}
-                            </option>))}
+                                <option key={index} value={category._id}>
+                                    {category.name}
+                                </option>))}
                         </select>
                     </div>
 
@@ -60,7 +76,7 @@ const Search = () => {
                     />
                 </div>
 
-                <div className='btn input-group-append' style={{border: 'none'}}>
+                <div className='btn input-group-append' style={{ border: 'none' }}>
                     <button className='input-group-text'>Search</button>
                 </div>
             </span>
@@ -69,8 +85,9 @@ const Search = () => {
 
     return (
         <div>
-            <div className='container'>
+            <div className='container mb-3'>
                 {searchForm()}
+                {JSON.stringify(results)}
             </div>
         </div>
     );
