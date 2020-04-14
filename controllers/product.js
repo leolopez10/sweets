@@ -6,15 +6,17 @@ const Product = require('../models/product');
 
 
 exports.productById = (req, res, next, id) => {
-    Product.findById(id).exec((err, product) => {
-        if (err || !product) {
-            return res.status(400).json({
-                error: "Product is not found"
-            });
-        }
-        req.product = product;
-        next();
-    })
+    Product.findById(id)
+        .populate('category')
+        .exec((err, product) => {
+            if (err || !product) {
+                return res.status(400).json({
+                    error: "Product is not found"
+                });
+            }
+            req.product = product;
+            next();
+        })
 }
 
 exports.read = (req, res) => {
@@ -209,10 +211,10 @@ exports.listBySearch = (req, res) => {
     let limit = req.body.limit ? parseInt(req.body.limit) : 100;
     let skip = parseInt(req.body.skip);
     let findArgs = {};
- 
+
     // console.log(order, sortBy, limit, skip, req.body.filters);
     // console.log("findArgs", findArgs);
- 
+
     for (let key in req.body.filters) {
         if (req.body.filters[key].length > 0) {
             if (key === "price") {
@@ -227,7 +229,7 @@ exports.listBySearch = (req, res) => {
             }
         }
     }
- 
+
     Product.find(findArgs)
         .select("-photo")
         .populate("category")
@@ -248,7 +250,7 @@ exports.listBySearch = (req, res) => {
 };
 
 exports.photo = (req, res, next) => {
-    if(req.product.photo.data) {
+    if (req.product.photo.data) {
         res.set("Content-Type", req.product.photo.contentType)
         return res.send(req.product.photo.data)
     }
@@ -258,18 +260,18 @@ exports.photo = (req, res, next) => {
 exports.listSearch = (req, res) => {
     // create query object to hold search value and category value
     const query = {}
-    
+
     // assign search value to query.name
-    if(req.query.search) {
-        query.name = {$regex: req.query.search, $options: 'i'}
+    if (req.query.search) {
+        query.name = { $regex: req.query.search, $options: 'i' }
         // assign category value to query.category
-        if(req.query.category  && req.query.category != "All") {
+        if (req.query.category && req.query.category != "All") {
             query.category = req.query.category
         }
         // find the product based on query object with 2 properties
         // search and category
         Product.find(query, (err, products) => {
-            if(err) {
+            if (err) {
                 return res.status(400).json({
                     error: errorHandler(err)
                 })
