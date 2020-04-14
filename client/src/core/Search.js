@@ -42,17 +42,27 @@ const Search = () => {
     // lesson 101 section 13
     const searchData = () => {
         // console.log(search, category)
-        if(search) {
-            list({search: search || undefined, category: category})
+        if (search) {
+            list({ search: search || undefined, category: category })
                 .then(response => {
-                    if(response.error) {
+                    if (response.error) {
                         console.log(response.error)
                     } else {
-                        setData({...data, results: response, searched: true});
+                        setData({ ...data, results: response, searched: true });
                     }
                 })
         }
     };
+
+    const searchedProducts = (results = []) => {
+        return (
+            <div className='row'>
+                {results.map((product, index) => (
+                    <Card key={index} product={product} />
+                ))}
+            </div>
+        )
+    }
 
     const searchForm = () => (
         <form onSubmit={searchSubmit}>
@@ -87,7 +97,10 @@ const Search = () => {
         <div>
             <div className='container mb-3'>
                 {searchForm()}
-                {JSON.stringify(results)}
+                {/* {JSON.stringify(results)} */}
+                <div className='container-fluid mb-3'>
+                    {searchedProducts(results)}
+                </div>
             </div>
         </div>
     );
