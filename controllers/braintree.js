@@ -32,7 +32,7 @@ exports.processPayment = (req, res) => {
             submitForSettlement: true
         }
     }, (error, result) => {
-        if(error) {
+        if (error) {
             res.status(500).json(error);
         } else {
             res.json(result);
