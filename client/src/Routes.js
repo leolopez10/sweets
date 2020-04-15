@@ -11,6 +11,7 @@ import AddCategory from './admin/AddCategory';
 import AddProduct from './admin/AddProduct';
 import Shop from './core/Shop';
 import Product from './core/Product';
+import Cart from './core/Cart';
 
 //using axios to check if frontend is connected to backend
 import axios from 'axios'
@@ -33,6 +34,7 @@ const Routes = () => {
                 <AdminRoute path='/create/category' exact component={AddCategory} />
                 <AdminRoute path='/create/product' exact component={AddProduct} />
                 <Route path='/product/:productId' exact component={Product} />
+                <Route path='/cart' exact component={Cart} />
 
             </Switch>
         </BrowserRouter>
