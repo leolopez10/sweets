@@ -1,14 +1,25 @@
-.btn, .jumbotron, .nav :hover {
+.btn,
+.jumbotron,
+.nav :hover {
     border-radius: 0px;
+}
+
+.cart-badge, .cart-badge:hover {
+    border-radius: 15%;
+    padding: 2px;
+    font-size: 12px;
+    background: red;
 }
 
 .product-img {
     min-height: 100px;
 }
 
+
 /* .jumbotron h2 {
     margin-top: -20px;
 } */
+
 
 /* Single product Styling */
 
@@ -18,26 +29,32 @@
     font-weight: bold;
 }
 
+
 /* Black shade form 10 -1 */
+
 .black-10 {
     background: #f2f2f2;
 }
+
 .black-9 {
     background: #e6e6e6;
 }
+
 .black-8 {
     background: #d9d9d9;
 }
+
 .black-7 {
     background: #cccccc;
 }
+
 .black-6 {
     background: #bfbfbf;
 }
+
 .black-5 {
     background: #b3b3b3;
 }
-
 
 @media only screen and (max-width: 600px) {
     .jumbotron h2 {
@@ -55,7 +72,7 @@
     -moz-animation: Gradient 15s ease infinite;
     animation: Gradient 15s ease infinite;
 }
- 
+
 @-webkit-keyframes Gradient {
     0% {
         background-position: 0% 50%;
@@ -67,7 +84,7 @@
         background-position: 0% 50%;
     }
 }
- 
+
 @-moz-keyframes Gradient {
     0% {
         background-position: 0% 50%;
@@ -79,7 +96,7 @@
         background-position: 0% 50%;
     }
 }
- 
+
 @keyframes Gradient {
     0% {
         background-position: 0% 50%;
