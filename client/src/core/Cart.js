@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'
 import Layout from './Layout';
-import { getCart } from './cartHelpers';
+import { getCart, removeItem } from './cartHelpers';
 import Card from './Card';
 
 const Cart = () => {
+   
     const [items, setItems] = useState([])
+    const [run, setRun] = useState(false)
 
 
     useEffect(() => {
         setItems(getCart())
-    }, [])
+    }, [run])
 
     const showItems = items => {
         return (
@@ -23,17 +25,18 @@ const Cart = () => {
                         product={product} 
                         showAddToCartButton={false}
                         cartUpdate={true}
+                        showRemoveProductButton={true}
+                        setRun={setRun}
+                        run={run}
                     />
                 ))}
             </div>
         )
     };
 
-
-
     const noItemsMessage = () => (
         <h2>Your cart is empty. <br /> <Link to='/shop'>Continue Shopping</Link></h2>
-    )
+    );
 
     return (
         <Layout title="Shopping Cart" description="Manage your cart items. Add, remove, checkout, or continue shopping" className="container-fluid">
