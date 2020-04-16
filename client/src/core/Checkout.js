@@ -10,6 +10,7 @@ import DropIn from 'braintree-web-drop-in-react'
 const Checkout = ({ products, setRun = f => f, run = undefined }) => {
     //lesson 119 Braintree front end
     const [data, setData] = useState({
+        loading: false,
         success: false,
         clientToken: null,
         error: '',
@@ -56,7 +57,7 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
     };
 
     const buy = () => {
-
+        setData({ loading: true })
         //send the nonce to the server
         // nonce = data.instance.requestPaymentMethod()
         let nonce;
@@ -79,11 +80,15 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
                         // empty cart
                         emptyCart(() => {
                             setRun(!run);
-                            console.log('payment success and empty cart')
+                            console.log('payment success and empty cart');
+                            setData({ loading: false })
                         })
                         // create order
                     })
-                    .catch(error => console.log(error))
+                    .catch(error => {
+                        // console.log(error)
+                        setData({ loading: false });
+                    })
             })
             .catch(error => {
                 // console.log('dropin error: ', error)
@@ -97,7 +102,10 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
                 <div>
                     <DropIn
                         options={{
-                            authorization: data.clientToken
+                            authorization: data.clientToken,
+                            paypal: {
+                                flow: 'vault'
+                            }
                         }}
                         onInstance={instance => (data.instance = instance)}
                     />
@@ -127,10 +135,15 @@ const Checkout = ({ products, setRun = f => f, run = undefined }) => {
         </div>
     )
 
+    const showLoading = (loading) => (
+        loading && (<h2>Loading.....</h2>)
+    )
+
     return (
         // <div>{JSON.stringify(products)}</div>
         <div>
             <h2>Total: ${getTotal()}</h2>
+            {showLoading(data.loading)}
             {showSuccess(data.success)}
             {showError(data.error)}
             {showCheckout()}
