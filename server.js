@@ -58,7 +58,7 @@ mongoose.connect(process.env.DATABASE, {
     useCreateIndex: true
 })
 .then(() => {
-    console.log("============================Database Connected================")
+    console.log("============================Database Connected==============================")
 });
 
 
