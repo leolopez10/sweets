@@ -13,6 +13,7 @@ const userRoutes = require("./routes/user");
 const categoryRoutes = require("./routes/category");
 const productRoutes = require("./routes/product");
 const braintreeRoutes = require("./routes/braintree");
+const orderRoutes = require("./routes/order");
 
 
 
@@ -44,6 +45,7 @@ app.use("/api", userRoutes);
 app.use("/api", categoryRoutes);
 app.use("/api", productRoutes);
 app.use("/api", braintreeRoutes);
+app.use("/api", orderRoutes);
 
 //Send every other request to the React App
 app.get("*", (req, res) => {
