@@ -54,7 +54,6 @@ exports.updateOrderStatus = (req, res) => {
                 error: errorHandler(err)
             });
         }
-        req.order = order;
-        next();
+        res.json(order)
     })
 }
