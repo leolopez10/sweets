@@ -103,6 +103,8 @@ const UpdateProduct = ({ match }) => {
                         price: '',
                         quantity: '',
                         loading: false,
+                        error: false,
+                        redirectToProfile: true,
                         createdProduct: data.name
                     });
 
