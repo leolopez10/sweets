@@ -62,7 +62,9 @@ const Dashboard = () => {
 
     const purchaseHistory = history => {
         return (
+            
             <div className="card mb-5">
+                {/* {JSON.stringify(history)} */}
                 <h3 className="card-header">Purchase history</h3>
                 <ul className="list-group">
                     <li className="list-group-item">
@@ -77,7 +79,7 @@ const Dashboard = () => {
                                                 <h6>Product price: ${p.price}</h6>
                                                 <h6>
                                                     Purchased date:{" "}
-                                                    {moment(p.createdAt).fromNow()}
+                                                    {moment(h.createdAt).fromNow()}
                                                 </h6>
                                             </div>
                                         );
