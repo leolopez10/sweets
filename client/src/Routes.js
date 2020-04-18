@@ -15,6 +15,8 @@ import Product from './core/Product';
 import Cart from './core/Cart';
 import Profile from './user/Profile';
 import ManageProducts from './admin/ManageProducts';
+import UpdateProduct from './admin/UpdateProduct';
+
 
 //using axios to check if frontend is connected to backend
 import axios from 'axios'
@@ -22,9 +24,9 @@ import axios from 'axios'
 const Routes = () => {
     useEffect(() => {
         axios.get("/api/hello").then(result => {
-          console.log(result.data);
+            console.log(result.data);
         });
-      }, []);
+    }, []);
     return (<div>
         <BrowserRouter>
             <Switch>
@@ -41,8 +43,7 @@ const Routes = () => {
                 <Route path='/cart' exact component={Cart} />
                 <PrivateRoute path='/profile/:userId' exact component={Profile} />
                 <PrivateRoute path='/admin/products' exact component={ManageProducts} />
-
-
+                <AdminRoute path='/admin/product/update/:productId' exact component={UpdateProduct} />
             </Switch>
         </BrowserRouter>
     </div>);

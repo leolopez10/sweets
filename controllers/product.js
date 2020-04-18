@@ -97,14 +97,7 @@ exports.update = (req, res) => {
             });
         }
 
-        //check for all fields
-        const { name, description, price, category, quantity, shipping } = fields
-
-        if (!name || !description || !price || !category || !quantity || !shipping) {
-            return res.status(400).json({
-                error: "All fields are required"
-            })
-        }
+        //No need to check for all fields because we are updating not creating
 
         //Changed product to update
         let product = req.product
@@ -206,7 +199,7 @@ exports.listCategories = (req, res) => {
 //=================================================================================
 
 exports.listBySearch = (req, res) => {
-    let order = req.body.order ? req.body.order : "desc";
+    let order = req.body.order ? req.body.order : "asc";
     let sortBy = req.body.sortBy ? req.body.sortBy : "_id";
     let limit = req.body.limit ? parseInt(req.body.limit) : 100;
     let skip = parseInt(req.body.skip);
@@ -292,7 +285,7 @@ exports.decreaseQuantity = (req, res, next) => {
     });
 
     Product.bulkWrite(bulkOps, {}, (error, products) => {
-        if(error) {
+        if (error) {
             return res.status(400).json({
                 error: 'Could not update product'
             })
