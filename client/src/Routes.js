@@ -13,6 +13,7 @@ import Orders from './admin/Orders';
 import Shop from './core/Shop';
 import Product from './core/Product';
 import Cart from './core/Cart';
+import Profile from './user/Profile'
 
 //using axios to check if frontend is connected to backend
 import axios from 'axios'
@@ -37,6 +38,8 @@ const Routes = () => {
                 <AdminRoute path='/admin/orders' exact component={Orders} />
                 <Route path='/product/:productId' exact component={Product} />
                 <Route path='/cart' exact component={Cart} />
+                <PrivateRoute path='/profile/:userId' exact component={Profile} />
+
 
             </Switch>
         </BrowserRouter>
