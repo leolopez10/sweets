@@ -50,9 +50,10 @@ if (process.env.NODE_ENV === 'production') {
 
 //Database
 mongoose
-  .connect(process.env.DATABASE, {
+  .connect(process.env.MONGODB_URI || process.env.DATABASE, {
     useNewUrlParser: true,
-    useCreateIndex: true
+    useCreateIndex: true,
+    useUnifiedTopology: true
   })
   .then(() => {
     console.log(
