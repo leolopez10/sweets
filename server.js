@@ -19,9 +19,9 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 //Check to see if backend is connect to the front end
-app.get('/api/hello', function (req, res) {
-  res.send('SUCCESS ===================Server is talking to the frontend');
-});
+// app.get('/api/hello', function (req, res) {
+//   res.send('SUCCESS ===================Server is talking to the frontend');
+// });
 
 //middleware
 app.use(morgan('dev'));
